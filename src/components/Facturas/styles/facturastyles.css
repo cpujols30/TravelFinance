@@ -1,0 +1,28 @@
+.pagination{
+    margin-top: 1%;
+}
+
+.datatable_users{
+border: 1px solid grey;
+}
+.factura{
+    background-color: white;
+    border-radius: 8px; /* Ajusta este valor para cambiar la curvatura */
+
+}
+.text-center{
+    margin-top: 1.5%;
+    text-align: center;
+}
+.ContainerBotonAñadirFactura{
+    margin-bottom: 1%;
+}
+.EncabezadoTabla{
+    background-color: #1b2849;
+}
+.EncabezadoTabla th{
+    color:white;
+}
+.delete-btn{
+    margin-left: 2%;
+}

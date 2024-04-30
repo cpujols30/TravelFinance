@@ -1,0 +1,94 @@
+
+/*Para ponerle margen arriba al componente herramientas*/
+.container-sm {
+  margin-top: 2%;
+}
+/*Propiedades customizadas*/
+:root{
+  --violeta:#564787;
+  --rosa:#568EA3;
+  --azulGris:#F2FDFF;
+  --azultinfany:#9AD4D6;
+  --oxfordblue:#1b2849;
+  --fuente:"Open Sans", sans-serif;
+}
+body{
+  font-family: var(--fuente);
+  background-color: var(--oxfordblue);
+}
+html{
+  box-sizing: border-box;
+}
+*,*::after,*::before{
+  box-sizing: inherit;
+}
+.contendor-login{
+  padding-top: 10%;
+  padding-left: 2%;
+  margin:0 auto;
+  min-width: 1200px;
+  width: 90%;
+  display:flex;
+  justify-content: center;
+}
+
+
+.formulario{
+  padding: 50px;
+  background-color:white ;
+}
+
+@media(min-width:768px){
+  .imagen-login{
+      height: auto;
+      background-position: right;
+  }
+
+}
+@media(min-width:1200px){
+  .imagen-login{
+      background-position: center;
+  }
+}
+
+@media(min-width:768px){
+  .contendor-login{
+      display: flex;
+  }
+}
+.texto-formulario h2{
+  font-size: 40px;
+}
+.texto-formulario p{
+  font-size: 22px;
+}
+.input label{
+ display: block;
+ font-size: 22px;
+ font-weight: bold;
+ margin: 20px 0;
+}
+.input input{
+  width: 100%;
+  padding: 10px 16px;
+
+}
+.button{
+  padding-top: 4%;
+}
+#botonlogin {
+  width: 100%;
+  background-color: #3b647d; /* Color de fondo ajustado */
+  color: #ffffff; /* Color de texto */
+  font-size: 20px;
+  border: none;
+  transition: background-color .3s ease-in-out;
+}
+
+#botonlogin:hover{
+  background-color:var(--oxfordblue);
+}
+
+.row-base{
+  background-color: white;
+}

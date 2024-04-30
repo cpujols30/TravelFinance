@@ -1,0 +1,36 @@
+.lista{
+    background-color: white;
+
+}
+.titulo{
+    max-height: 10px;
+}
+.Lista{
+    background-color: white;
+}
+.ControlHorario{
+    background-color: white;
+    border-radius: 8px;
+    min-height: 750px;
+}
+.text-center h2{
+    margin-top: 1.5%;
+    text-align: center;
+}
+.list-group{
+    border: 1px solid grey;
+    margin-bottom: 3px;
+    
+}
+.botones{
+    margin-bottom: 1%;
+}
+.btn {
+    margin-right: 1%;
+}
+.EncabezadoTabla{
+    background-color: #1b2849;
+}
+.EncabezadoTabla th{
+    color:white;
+}

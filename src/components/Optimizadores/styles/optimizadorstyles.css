@@ -1,0 +1,12 @@
+.Optimizador{
+    border-radius: 8px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+}
+.optimizador-intro p {
+    text-align: justify; /* Justifica el texto del párrafo */
+    text-justify: inter-word; /* Mejora la justificación para evitar grandes espacios entre palabras */
+    margin: 20px 0; /* Añade un poco de margen arriba y abajo para separarlo de otros elementos */
+    line-height: 1.6; /* Aumenta la altura de línea para mejorar la legibilidad */
+    font-size: 16px; /* Establece un tamaño de fuente legible */
+}

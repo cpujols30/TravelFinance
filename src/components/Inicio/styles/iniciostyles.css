@@ -1,0 +1,52 @@
+/* Estilos globales */
+.TextWelcome {
+    margin-top: 1.5%;
+    text-align: center;
+}
+.inicio {
+    background-color: white;
+    border-radius: 8px;
+}
+.Linechart {
+    margin: 2.5%;
+    height: 80%;
+}
+.Tablas, .TablaProveedores, .TablaUsers {
+    width: 100%; /* Ajusta el ancho al 100% para pantallas pequeñas */
+    margin-bottom: 2.5%;
+}
+.contenedorIncio {
+    max-height: 100vh; /* Esto podría estar equivocado en tu CSS original, ajustado para hacer sentido */
+}
+.Global {
+    height: 100vh;
+    margin-top: 2%;
+}
+.barraProgreso {
+    margin-bottom: 12px;
+}
+h3 {
+    margin-top: 12px;
+}
+
+/* Media Queries */
+@media (min-width: 768px) { /* Tablets y desktops pequeños */
+    .Tablas, .TablaProveedores, .TablaUsers {
+        width: 350px; /* Fijo para pantallas más grandes */
+    }
+    .Global {
+        padding: 0 10px; /* Añadir algo de padding en pantallas más grandes */
+    }
+}
+
+@media (min-width: 992px) { /* Desktops medianos */
+    .Linechart {
+        margin-left: 2.5%;
+        margin-bottom: 2.5%;
+        height: 80%;
+    }
+    .Tablas {
+        margin-left: 1.5%;
+        width: 20%; /* Mantiene un ancho relativo en pantallas grandes */
+    }
+}

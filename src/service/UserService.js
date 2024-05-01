@@ -1,8 +1,8 @@
 import axios from 'axios'
 import toast from 'react-hot-toast';
 
-const BASE_URL = 'http://localhost:8080'
-
+//const BASE_URL = 'http://localhost:8080'
+const BASE_URL = 'https://travelfinancebackend.azurewebsites.net';
 export const login = async credentials => {
   const { username, password } = credentials
   const token = btoa(`${username}:${password}`) // Codifica las credenciales en Base64

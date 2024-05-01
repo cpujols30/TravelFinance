@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:8080'
-
+//const BASE_URL = 'http://localhost:8080'
+const BASE_URL = 'https://travelfinancebackend.azurewebsites.net';
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
 

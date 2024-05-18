@@ -14,10 +14,9 @@ function TablaProveedores () {
     fetchCompanies()
   }, [])
 
-  
   return (
     <>
-    <h3>Proveedores</h3>
+    <h2>Proveedores</h2>
     <hr />
     <Table striped bordered hover>
         <thead>

@@ -12,7 +12,7 @@ function Inicio() {
             <Navbar/> 
             <div className="container Global">
                 <div className="row inicio">
-                    <h1 className='TextWelcome'>Bienvenido</h1> {/* Muestra el nombre de usuario */}
+                    <h1 className='TextWelcome MainText'>Bienvenido</h1> {/* Muestra el nombre de usuario */}
                     <hr/>
                     <div className="col-md-8">
                         <div className="Linechart border border-dark">

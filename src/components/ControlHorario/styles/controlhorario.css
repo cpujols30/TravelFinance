@@ -11,7 +11,7 @@
 .ControlHorario{
     background-color: white;
     border-radius: 8px;
-    min-height: 750px;
+    min-height: 650px;
 }
 .text-center h2{
     margin-top: 1.5%;
@@ -33,4 +33,7 @@
 }
 .EncabezadoTabla th{
     color:white;
+}
+.leyenda{
+    padding-bottom: 1%;
 }

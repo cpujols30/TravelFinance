@@ -1,5 +1,4 @@
 
-/*Para ponerle margen arriba al componente herramientas*/
 .container-sm {
   margin-top: 2%;
 }
@@ -91,4 +90,8 @@ html{
 
 .row-base{
   background-color: white;
+}
+.MainText{
+  font-size: 45px;
+  margin-top: 10px;
 }

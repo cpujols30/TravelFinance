@@ -1,13 +1,13 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import toast from 'react-hot-toast';
+import { BASE_URL } from '../../../util/Constantes';
 
-
-const BASE_URL = 'http://localhost:8080'
 
 export const FindAllFacturas = async () => {
   try {
     const response = await axios.get(BASE_URL + '/AllFacturas')
+   
     return response
 
   } catch (error) {
@@ -58,6 +58,7 @@ export const handlerDelete= async (id) => {
 const DeleteFactura = async (id) => {
   try {
     const url = `${BASE_URL}/DeleteFactura/${id}`; 
+    
     const response = await axios.delete(url);
     toast.success('Factura borrada correctamente')
 
@@ -68,4 +69,3 @@ const DeleteFactura = async (id) => {
   }
 }
 
-// Fin de acciones para delete 

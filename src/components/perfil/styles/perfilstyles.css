@@ -17,3 +17,12 @@
     display: flex;
     justify-content: space-between;  /* Alinea los elementos a cada extremo */
 }
+label{
+    display: inline-block;
+    width: 80px;
+  }
+.content{
+    border: 1px solid #000000; /* 2px es el grosor, solid es el estilo del borde, y #000000 es el color (negro) */
+    padding: 20px; 
+    margin-right: 12px;
+}

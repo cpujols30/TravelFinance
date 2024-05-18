@@ -9,7 +9,7 @@ import UserRouter from './routes/UserRouter.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
      <BrowserRouter>
-      <Toaster />
+      <Toaster  />
      <UserRouter />
      </BrowserRouter>
 

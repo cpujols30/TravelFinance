@@ -1,7 +1,10 @@
 
 .navbar-nav{
-  margin-left: 30%;
+  margin-left: 35%;
 }
 .Btonfinal{
   margin-left: 330px
+}
+.nav-item.active {
+  font-weight: bold;
 }

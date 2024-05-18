@@ -1,8 +1,7 @@
 import axios from 'axios'
 import toast from 'react-hot-toast';
+import {BASE_URL} from '../util/Constantes'
 
-//const BASE_URL = 'http://localhost:8080'
-const BASE_URL = 'https://travelfinancebackend.azurewebsites.net';
 export const login = async credentials => {
   const { username, password } = credentials
   const token = btoa(`${username}:${password}`) // Codifica las credenciales en Base64
@@ -13,12 +12,15 @@ export const login = async credentials => {
   }
 
   try {
+    toast.loading('Iniciando sesión...'); // Muestra una notificación de carga
     const { data } = await axios.post(BASE_URL + '/secure', null, config)
+    toast.dismiss();
       toast.success('Bienvenido'); // Muestra una notificación de éxito
 
     return data
     
   } catch (error) {
+    toast.dismiss();
     // Verifica si el error tiene una respuesta y un código de estado
     if (error.response && error.response.status) {
       const statusCode = error.response.status;
@@ -27,6 +29,7 @@ export const login = async credentials => {
         toast.error('Credenciales incorrectas');
       } 
     } else {
+      toast.dismiss();
       // Error al realizar la petición, pero no está relacionado con una respuesta HTTP
       toast.error('Error en la solicitud. Verifica conexión con el servidor');
     }

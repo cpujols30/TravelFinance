@@ -16,7 +16,7 @@ const ModalLog = ({ log, onClose }) => {
             {/* eslint-disable-next-line react/prop-types */}
             <p>Log ID: {log.logsId}</p>
              {/* eslint-disable-next-line react/prop-types */}
-            <p>Nombre: {log.nombreEmpl}</p>
+            <p>Nombre: {log.nombre_Empl}</p>
              {/* eslint-disable-next-line react/prop-types */}
             <p>Fecha: {log.fecha}</p>
              {/* eslint-disable-next-line react/prop-types */}

@@ -19,14 +19,15 @@
     max-height: 100vh; /* Esto podría estar equivocado en tu CSS original, ajustado para hacer sentido */
 }
 .Global {
-    height: 100vh;
+    height: 80vh;
     margin-top: 2%;
 }
 .barraProgreso {
     margin-bottom: 12px;
 }
-h3 {
+h2 {
     margin-top: 12px;
+    font-weight: 600; 
 }
 
 /* Media Queries */

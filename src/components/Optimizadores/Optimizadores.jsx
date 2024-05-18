@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import  '../Optimizadores/styles/optimizadorstyles.css'
 import { useRef} from 'react';
 import {sendPackage} from '../Optimizadores/Services/optService'
+import { sanitizeObject } from '../../util/Funciones';
+import Footer from '../../routes/Footer';
 function Optimizadores() {
 const formRef = useRef(null);
 const handleSubmit = async (e) => {
@@ -30,10 +32,13 @@ const handleSubmit = async (e) => {
     }
 
     try {
-        const data = await sendPackage(resultadoFinal);
+        const result =sanitizeObject(resultadoFinal);
+        const data = await sendPackage(result);
         let alertMessage = 'Los paquetes más adecuados son:\n';
         data.data.forEach((paquete, index) => {
-            alertMessage += `Paquete ${index + 1}: costoPaquete: ${paquete.costoPaquete}, valorSatisfaccion: ${paquete.valorSatisfaccion}\n`;
+            alertMessage += `Paquete ${index + 1}: 
+            costoPaquete: ${paquete.costoPaquete}, 
+            valorSatisfaccion: ${paquete.valorSatisfaccion}\n`;
         });
         alert(alertMessage); // Mostrar la respuesta en un cuadro de diálogo
     } catch (error) {
@@ -45,20 +50,28 @@ const handleSubmit = async (e) => {
     return(
         <>
             <Navbar/>
-            <div className="container Global ">
+            <div className="container Global "style={{marginBottom:'20%'}}>
                 <div className="row inicio">
-                    <h1 className='TextWelcome'>Optimizadores Turísticos</h1>
+                    <h1 className='TextWelcome MainText'>Optimizadores Turísticos</h1>
                     <hr/>
                    <div className="Optimizador">
-                    <h3>Optimizador de paquetes</h3>
+                    <h2>Optimizador de paquetes</h2>
                     <div className="optimizador-intro">
-                    <p>En este componente Optimizadores, te invitamos a explorar cómo puedes planificar tus viajes de manera más efectiva utilizando el poder de la optimización. A través de un enfoque práctico y accesible, 
-                        hemos implementado una versión digital del clásico problema de la mochila, adaptado para ayudarte a seleccionar los mejores paquetes turísticos basados en tu presupuesto disponible y la satisfacción esperada por el cliente.</p>
+                    <p>En este componente Optimizadores, te invitamos a explorar cómo puedes
+                         planificar tus viajes de manera más efectiva utilizando el poder de 
+                         la optimización. A través de un enfoque práctico y accesible, 
+                        hemos implementado una versión digital del clásico problema de la mochila,
+                         adaptado para ayudarte a seleccionar los mejores paquetes turísticos basados
+                         en tu presupuesto disponible y la satisfacción esperada por el cliente.</p>
                         </div>
                     <Form  ref={formRef} onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="presupuestoTotal">
-                            <Form.Label>Presupuesto Total</Form.Label>
-                            <Form.Control required type="number" placeholder="Ingrese su presupuesto total" name="Presupuesto"/>
+                        <div className="col-md-6">
+                            <p>Presupuesto Total</p>
+                                </div>
+                           
+                            <Form.Control required type="number" 
+                            placeholder="Ingrese su presupuesto total" name="Presupuesto"/>
                             <Form.Text className="text-muted">
                                 Establezca el presupuesto máximo para sus paquetes turísticos.
                             </Form.Text>
@@ -70,14 +83,18 @@ const handleSubmit = async (e) => {
                                 <div className="row">
                                     <div className="col">
                                         <Form.Group className="mb-3" controlId={`costoPaquete${index + 1}`}>
-                                            <Form.Label>Costo del Paquete</Form.Label>
-                                            <Form.Control required type="number" placeholder={`Costo del paquete ${index + 1}`} name={`costoPaquete${index + 1}`}/>
+                                           <p>Costo del Paquete</p>
+                                            <Form.Control required type="number" 
+                                            placeholder={`Costo del paquete ${index + 1}`} 
+                                            name={`costoPaquete${index + 1}`}/>
                                         </Form.Group>
                                     </div>
                                     <div className="col">
                                         <Form.Group className="mb-3" controlId={`valorSatisfaccion${index + 1}`}>
-                                            <Form.Label>Valor de Satisfacción</Form.Label>
-                                            <Form.Control required type="number" placeholder={`Valor de satisfacción ${index + 1}`}  name={`valorSatisfaccion${index + 1}`}/>
+                                           <p>Valor de Satisfacción</p>
+                                            <Form.Control required type="number" 
+                                            placeholder={`Valor de satisfacción ${index + 1}`}  
+                                            name={`valorSatisfaccion${index + 1}`}/>
                                         </Form.Group>
                                     </div>
                                 </div>
@@ -92,6 +109,7 @@ const handleSubmit = async (e) => {
                 
             </div>
         </div>
+         <Footer/>
         </>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import { login } from '../service/UserService';
-
+import {sanitizeInput} from '../util/Funciones';
 export const UserContext = React.createContext(null);
 
 function App() {
@@ -12,7 +12,9 @@ function App() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-      
+        setUsername(sanitizeInput(username));
+        setPassword(sanitizeInput(password));
+
         try {
             const user = await login({
                 username,
@@ -23,7 +25,7 @@ function App() {
             setPassword('');
 
     
-            navigate('/Inicio'); // Usa navigate para cambiar la ruta
+            navigate('/Inicio'); 
         } catch(e) {
             
             setTimeout(() => {
@@ -37,7 +39,7 @@ function App() {
         <div className="contendor-login">
             <div className="formulario">
             <div className="texto-formulario">
-            <h1>Bienvenido</h1>
+            <h1 style={{fontSize:'40px'}}>Bienvenido</h1>
             <p>Inicia Sesion con tu cuenta</p>
             </div>
             <form onSubmit={handleLogin}>
@@ -62,7 +64,7 @@ function App() {
                     onChange={(event) => setPassword(event.target.value)} />
                </div>
                <div className="button">
-               <button  id="botonlogin"type="submit">Login</button>
+               <button  id="botonlogin"type="submit">Iniciar sesión</button>
                
                {errorMessage && <div>{errorMessage}</div>}
 

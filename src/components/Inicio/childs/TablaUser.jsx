@@ -35,22 +35,24 @@ function TablaUsers() {
 
   return (
     <>
-      <h3>Gastos Generales</h3>
+      <h2>Gastos Generales</h2>
       <hr />
       <div className="row">
-        <h5>Ingresos: {ingresos}</h5>
+        <h3>Ingresos: {ingresos}</h3>
       </div>
       <div className="row">
-        <h5>Gastos: {gastos}</h5>
+        <h3>Gastos: {gastos}</h3>
       </div>
       <div className="row">
-        <h5>Beneficio: {beneficio}</h5>
+        <h3>Beneficio: {beneficio}</h3>
       </div>
       <div className="container barraProgreso">
         <ProgressBar>
           {/* Ajusta el valor de "now" para reflejar el porcentaje respecto al ingreso total */}
-          <ProgressBar striped variant="success" animated now={(ingresos / (ingresos + gastos)) * 100} key={1} />
-          <ProgressBar striped variant="danger" animated now={(gastos / (ingresos + gastos)) * 100} key={2} />
+          <ProgressBar striped variant="success" animated now={(ingresos / (ingresos + gastos)) * 100} key={1} 
+          aria-label="Barra de ingreso"/>
+          <ProgressBar striped variant="danger" animated now={(gastos / (ingresos + gastos)) * 100} key={2} 
+          aria-label="Barra de gasto"/>
         </ProgressBar>
       </div>
     </>

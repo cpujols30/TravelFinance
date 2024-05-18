@@ -1,8 +1,7 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import toast from 'react-hot-toast';
-
-const BASE_URL = 'http://localhost:8080'
+import { BASE_URL } from '../../../util/Constantes';
 
 export const findServices = async (id) => {
     try {
@@ -39,7 +38,7 @@ export const findServices = async (id) => {
 export const addFactura = async (factura) => {
   // Encapsula la llamada a Axios con toast.promise
   await toast.promise(
-    axios.post(`${BASE_URL}/AddFactura`, factura), // La promesa que quieres manejar
+    axios.post(`${BASE_URL}/AddFactura`, factura), 
     {
       loading: 'Agregando factura...', // Mensaje de carga
       success: 'Factura agregada correctamente', // Mensaje de éxito
@@ -47,12 +46,24 @@ export const addFactura = async (factura) => {
     }
   );
 }
+export const editFactura = async (factura) => {
+  // Encapsula la llamada a Axios con toast.promise
+  try {
+    axios.put(`${BASE_URL}/UpdateFactura`, factura)
+
+  } catch (error) {
+    console.log(error)
+    
+  }
+}
 
   export const ModifyServiceHotel = async (service) => {
     try {
         const response = await axios.put(`${BASE_URL}/UpdateServicioHotel`,service);
+        toast.success('Servicio actualizado,para ver los cambios recargue la página');
       return response
     } catch (error) {
+      toast.error(' Error al actualizar el servicio');
       console.error(error)
       return null
     }
@@ -60,8 +71,10 @@ export const addFactura = async (factura) => {
   export const ModifyServiceViaje = async (service) => {
     try {
         const response = await axios.put(`${BASE_URL}/UpdateServicioViaje`,service);
+        toast.success('Servicio actualizado,para ver los cambios recargue la página');
       return response
     } catch (error) {
+      toast.error(' Error al actualizar el servicio');
       console.error(error)
       return null
     }
@@ -102,7 +115,6 @@ const swalWithBootstrapButtons = Swal.mixin({
         });
         window.location.reload();
       } else if (
-        /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
         await swalWithBootstrapButtons.fire({
@@ -141,7 +153,6 @@ const swalWithBootstrapButtons = Swal.mixin({
         });
         window.location.reload();
       } else if (
-        /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
         await swalWithBootstrapButtons.fire({

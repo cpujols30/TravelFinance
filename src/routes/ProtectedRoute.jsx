@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '/src/auth/UseAuth.jsx'; // Asegúrate de importar correctamente el hook useAuth
+import { useAuth } from '../auth/UseAuth'; // Asegúrate de importar correctamente el hook useAuth
 
 // eslint-disable-next-line react/prop-types
 function ProtectedRoute({ children }) {

@@ -7,7 +7,7 @@ border: 1px solid grey;
 }
 .factura{
     background-color: white;
-    border-radius: 8px; /* Ajusta este valor para cambiar la curvatura */
+    border-radius: 8px;
 
 }
 .text-center{

@@ -6,6 +6,7 @@ import {addServices, addFactura, getIdLibre} from '../services/ModalService'
 import {searchHotelByCity , searchAIRByCity} from '../services/AmadeusService'
 import toast from 'react-hot-toast';
 import getUser from '../../../service/UserService';
+import { sanitizeServicesArray,sanitizeObject} from '../../../util/Funciones';
 
 function ModalFactura() {
   const [user, setUser] = useState(''); // Estado para almacenar el nombre de usuario
@@ -53,14 +54,18 @@ function ModalFactura() {
         // eslint-disable-next-line react/prop-types
     formProps.facturaId =idLibre
     try {
-      await addFactura(formProps);
+      const factura=sanitizeObject(formProps)
+      await addFactura(factura);
     } catch (error) {
+      console.log(error)
       alert('Error al añadir la factura');
     }
    try {
-    await addServices(formProps.servicios);
+    const servicios=sanitizeServicesArray(formProps.servicios)
+    await addServices(servicios);
 
    } catch (error) {
+    console.log(error)
     console.log('Error al añadir el servicio, el identificador debe de ser único');
    }
     // Limpiar el estado y el formulario como sea necesario después de enviar
@@ -79,6 +84,13 @@ const agregarServicio = () => {
   const formData = new FormData(formRef.current);
   const servicio = Object.fromEntries(formData);
   servicio.IdFactura =idLibre
+  if (serviceType === "Vuelo") {
+    servicio.Destino = selectedCityAIR === "MAD" ? "España" : 
+                      selectedCityAIR === "DXB" ? "Emiratos Árabes Unidos" : 
+                      selectedCityAIR === "ORY" ? "Francia" : 
+                      selectedCityAIR === "HND" ? "Japón" : 
+                      selectedCityAIR === "AMS" ? "Países Bajos" : "";
+  }
   setServicios(serviciosAnteriores => [...serviciosAnteriores, servicio]);
 
   // Limpiar el formulario para permitir añadir otro servicio
@@ -125,36 +137,48 @@ const handleairport = async (event) => {
         Añadir Factura
       </Button>
 
-      <Modal show={show} onHide={() => setShow(false)} size="lg"  dialogClassName="modal-90w" aria-labelledby="example-custom-modal-styling-title">
+      <Modal show={show} onHide={() => setShow(false)} size="lg" 
+      dialogClassName="modal-90w"  aria-label="Modal de Añadir Factura">
         <Modal.Header closeButton>
           <Modal.Title>
+            <h1>
             Nueva Factura
+              </h1>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form ref={formRef} onSubmit={handleSubmit}>
         <div className="row">
             <div className="col">
+              <div className="row">
               <Form.Label>Nombre del cliente</Form.Label>
+              </div>
               <Form.Control required type="text" placeholder="Nombre"  name="cliente" />
               <br />
             </div>
             <div className="col">
               <fieldset disabled>
+                <div className="row">
                 <Form.Label>Nombre del empleado</Form.Label>
+                </div>
                 <Form.Control type="text" placeholder={EmpleadoActual} name="NombreEmpleado"/>
               </fieldset>
               <fieldset disabled>
+                <div className="row">
                 <Form.Label>ID de factura</Form.Label>
+                </div>
                 <Form.Control type="text" placeholder={idLibre} name="facturaId"/>
               </fieldset>
               <br />
             </div>
           </div>          
-          <h5>Servicios de factura</h5>
+          <h2>Servicios de factura</h2>
           <hr />
+          <div className="row">
           <Form.Label>Tipo de servicio</Form.Label>
-          <Form.Select name="tipoServicio" value={serviceType} onChange={handleServiceChange}>
+          </div>
+          <Form.Select name="tipoServicio" value={serviceType} onChange={handleServiceChange}
+          aria-label="Selector de tipo de servicio">
             <option value="">Seleccione un servicio</option>
             <option value="Vuelo">Vuelo</option>
             <option value="Hotel">Hotel</option>
@@ -174,8 +198,10 @@ const handleairport = async (event) => {
                     <div className="col">
 
                     <Form.Group controlId="editForm.buscaAereopuerto">
-                        <Form.Label>Selecciona Ciudad</Form.Label>
-                        <Form.Select required value={selectedCityAIR} onChange={handleairport}  name="Destino">
+                      <div className="row">
+                      <Form.Label>Seleccionar Ciudad</Form.Label>
+                      </div>
+                        <Form.Select required value={selectedCityAIR} onChange={handleairport}  name="Ciudad">
                         <option value="">Seleccione</option>
                         <option value="MAD">Madrid</option>
                         <option value="DXB">Dubai</option>
@@ -185,27 +211,51 @@ const handleairport = async (event) => {
 
                       </Form.Select>
                   </Form.Group>
+                  {selectedCityAIR && (
+                      <Form.Group controlId="editForm.Destino">
+                        <div className="row">
+                          <Form.Label>Destino</Form.Label>
+                        </div>
+                        <Form.Control
+                          type="text"
+                          placeholder="Destino"
+                          value={selectedCityAIR === "MAD" ? "España" : 
+                          selectedCityAIR === "DXB" ? "Emiratos Árabes Unidos" : 
+                          selectedCityAIR === "ORY" ? "Francia" : 
+                          selectedCityAIR === "HND" ? "Japón" : 
+                          selectedCityAIR === "AMS" ? "Países Bajos" : ""} 
+                          disabled 
+                          name="Destino"
+                        />
+                      </Form.Group>
+                    )}
                   {airports.length > 0 && (
                       <Form.Group required controlId="editForm.BuscaHotel">
-                      <Form.Label>Buscar Hotel por ciudad</Form.Label>
+                        <div className="row">
+                        <Form.Label>Buscar Hotel por ciudad</Form.Label>
+                        </div>
                       <Form.Select required value={selectedCityAIR} name="Nombreaereopuerto">
                       {airports.map((index) => (
-                            // Usar el índice como key y value podría no ser ideal, pero es un enfoque práctico aquí
                             <option key={index} value={index}>{index}</option>
                           ))}
                     </Form.Select>
                       </Form.Group>
+                     
                     )}
                     </div>
                     </div>
                     <div className="row">
                     <div className="col">
+                      <div className="row">
                       <Form.Label>Fecha de Ida</Form.Label>
+                      </div>
                     <Form.Control required type="Date" placeholder="FechaIda"  name="FechaIda"/>
                     <br />
                     </div>
                     <div className="col">
-                      <Form.Label>Fecha de vuelta</Form.Label>
+                      <div className="row">
+                      <Form.Label>Fecha de Vuelta</Form.Label>
+                      </div>
                     <Form.Control type="Date" placeholder="FechaVuelta"  name="FechaVuelta"/>
                     <br />
                     </div>
@@ -213,23 +263,28 @@ const handleairport = async (event) => {
                     <div className="row">
                     <div className="col">
                     <Form.Group controlId="editForm.IdentVuelo">
-                    <Form.Label>Identificador del Vuelo</Form.Label>
+                      <div className="row">
+                      <Form.Label>Identificador del Vuelo</Form.Label>
+                      </div>
                     <Form.Control required type="text" name="IdentVuelo"/>
                     </Form.Group>
                     </div>
-                      <div className="col">
-                      <Form.Label>Precio Total</Form.Label>
-                      <Form.Control required type="text" placeholder="PrecioTotal" name="PrecioTotal"/>
-                      <br />
-                      </div>
                     <div className="col">
-                    <Form.Label>Precio Base</Form.Label>
+                      <div className="row">
+                      <Form.Label>Precio Base</Form.Label>
+                      </div>
                     <Form.Control required type="text" placeholder="PrecioBase" name="PrecioBase"/>
                     <br />
                     </div>
-                   
-                    </div>
+                      <div className="col">
+                        <div className="row">
+                        <Form.Label>Precio Total</Form.Label>
+                        </div>
+                      <Form.Control required type="text" placeholder="PrecioTotal" name="PrecioTotal"/>
+                      <br />
+                      </div>
                   
+                    </div>
                   </>
           )}
 
@@ -243,8 +298,11 @@ const handleairport = async (event) => {
               </Form.Group>
           </div>
           <div className="col">
+           
           <Form.Group controlId="editForm.BuscaHotel">
-                  <Form.Label>Selecciona hotel</Form.Label>
+          <div className="row">
+          <Form.Label>Seleccionar Ciudad</Form.Label>
+              </div>
                   <Form.Select required value={selectedCity} onChange={handleHotelCity}>
                   <option value="">Seleccione</option>
                   <option value="MAD">Madrid</option>
@@ -260,7 +318,9 @@ const handleairport = async (event) => {
         {/* Selector de Hotel */}
         {hotels.length > 0 && (
           <Form.Group required controlId="editForm.BuscaHotel">
-          <Form.Label>Buscar Hotel por ciudad</Form.Label>
+            <div className="row">
+            <Form.Label>Buscar Hotel por ciudad</Form.Label>
+            </div>
           <Form.Select required value={selectedCity} name="NombreHotel">
           {hotels.map((index) => (
                 // Usar el índice como key y value podría no ser ideal, pero es un enfoque práctico aquí
@@ -274,31 +334,41 @@ const handleairport = async (event) => {
              <div className="row">
               <div className="col">
               <Form.Group controlId="editForm.FechaIda">
-                  <Form.Label>Fecha de Ida</Form.Label>
+                <div className="row">
+                <Form.Label>Fecha de Ida</Form.Label>
+                </div>
                   <Form.Control required type="date"  name="FechaIda"/>
               </Form.Group>
               </div>
               <div className="col">
               <Form.Group controlId="editForm.FechaVuelta">
-                  <Form.Label>Fecha de Vuelta</Form.Label>
+                <div className="row">
+                <Form.Label>Fecha de Vuelta</Form.Label>
+                </div>
                   <Form.Control required type="date"  name="FechaVuelta"/>
               </Form.Group>
               </div>
              </div>
               <Form.Group controlId="editForm.NReserva">
-                  <Form.Label>Número de Reserva</Form.Label>
+                <div className="row">
+                <Form.Label>Número de Reserva</Form.Label>
+                </div>
                   <Form.Control type="text"  name="NReserva"/>
               </Form.Group>
               <div className="row">
                   <div className="col">
                   <Form.Group controlId="editForm.PrecioBase">
-                  <Form.Label>Precio Base</Form.Label>
+                    <div className="row">
+                    <Form.Label>Precio Base</Form.Label>
+                    </div>
                   <Form.Control required type="number" step="0.01"  name="PrecioBase"/>
                   </Form.Group>
                   </div>
                   <div className="col">
                   <Form.Group controlId="editForm.PrecioTotal">
-                  <Form.Label>Precio Total</Form.Label>
+                    <div className="row">
+                    <Form.Label>Precio Total</Form.Label>
+                    </div>
                   <Form.Control required type="number" step="0.01"  name="PrecioTotal"/>
               </Form.Group>
                   </div>
@@ -306,7 +376,7 @@ const handleairport = async (event) => {
           </>
           )}
             {/* Botón de envío y de cancel */}
-            <Button variant="secondary" onClick={agregarServicio}>
+            <Button variant="secondary" onClick={agregarServicio} style={{marginTop:'2%'}}>
               Agregar Servicio
             </Button>
 

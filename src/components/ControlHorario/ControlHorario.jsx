@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../../routes/Footer.jsx'
-import Table from 'react-bootstrap/Table'; // Importa Table desde react-bootstrap
+import Table from 'react-bootstrap/Table'; 
 import { findAllLogs, SendLog, FinalizeLogs, ComprobarHorario } from '../ControlHorario/services/CHService.js';
-import ModalLog from '../ControlHorario/childs/ModalLog.jsx'; // Asegúrate de importar el componente modal
+import ModalLog from '../ControlHorario/childs/ModalLog.jsx'; 
 import Navbar from '../../routes/Navbar.jsx'
 import '../ControlHorario/styles/controlhorario.css';
 import Pagination from 'react-bootstrap/Pagination';
@@ -27,7 +27,7 @@ const LogsComponent = () => {
   }, []); // El array vacío asegura que este efecto se ejecute sólo una vez después del montaje inicial
   // Paginacion
   const [currentPage, setCurrentPage] = useState(1);
-  const [logsPerPage] = useState(10); // Puedes ajustar este valor según cuántos logs quieras mostrar por página
+  const [logsPerPage] = useState(10); 
 
   // Fin de paginación
   const [logs, setLogs] = useState([]);
@@ -80,7 +80,7 @@ const LogsComponent = () => {
     const currentTime = getCurrentTime(); // Obtiene la hora y los minutos actuales
     const CH = ComprobarHorario(currentTime)
     const logUser = {
-      nombreEmpl: credentials, // provisional
+      nombre_Empl: credentials, // provisional
       fecha: formattedDate,
       tiempo: currentTime, // Usa la hora y los minutos actuales
       Tipo:1,
@@ -96,7 +96,7 @@ const LogsComponent = () => {
     const formattedDate = today.toISOString().split('T')[0]; // Obtiene la fecha actual en formato YYYY
     const currentTime = getCurrentTime(); // Obtiene la hora y los minutos actuales
     const logUser = {
-      nombreEmpl: credentials, // provisional
+      nombre_Empl: credentials, // provisional
       fecha: formattedDate,
       tiempo: currentTime, // Usa la hora y los minutos actuales
       Tipo:2,
@@ -111,12 +111,13 @@ const LogsComponent = () => {
   const handleCloseModal = () => {
     setSelectedLog(null);
   };
+  
   return (
     <>
       <Navbar />
       <div className="container ControlHorario">
         <div className="text-center row">
-          <h2>Lista de registros</h2>
+          <h1 className="MainText">Lista de registros</h1>
           <hr />
         </div>
         <div className="d-flex justify-content-end botones">
@@ -141,7 +142,7 @@ const LogsComponent = () => {
                   <tr key={index} onClick={() => handleLogClick(log)} style={{ cursor: 'pointer' }}>
                     <td>{index + 1 + (currentPage - 1) * logsPerPage}</td>
                     <td>{log.fecha}</td>
-                    <td>{log.nombreEmpl}</td>
+                    <td>{log.nombre_Empl}</td>
                     <td>{log.Tipo === 1 ? 'Entrada' : 'Salida'}</td>
                     <td>
                     {(() => {
@@ -198,19 +199,33 @@ const LogsComponent = () => {
               </tbody>
             </Table>
             <Pagination>
-              {[...Array(totalPages).keys()].map(number => (
-                <Pagination.Item key={number + 1} 
-                active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>
-                  {number + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+          <Pagination.Prev 
+            onClick={() => currentPage > 1 && paginate(currentPage - 1)} 
+            disabled={currentPage === 1}>
+            Anterior 
+          </Pagination.Prev>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+            <Pagination.Item 
+              key={number} 
+              active={number === currentPage} 
+              onClick={() => paginate(number)}>
+              {number}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next 
+            onClick={() => currentPage < totalPages && paginate(currentPage + 1)} 
+            disabled={currentPage === totalPages}>
+            Siguiente
+          </Pagination.Next>
+        </Pagination>
+        {selectedLog && <ModalLog log={selectedLog} onClose={() => setSelectedLog(null)} />}
           </>
         ) : (
           <p>No se encontraron logs.</p>
         )}
         {selectedLog && <ModalLog log={selectedLog} onClose={handleCloseModal} />}
         <p>Leyenda:</p>
+        <div className="leyenda">
         <div className="row">
        <div className="col">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
@@ -221,7 +236,7 @@ const LogsComponent = () => {
               0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 
               1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
               <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
-            </svg> - Llegada correcta
+            </svg> - Llegada correcta.
             
           </div>
         <div className="col">
@@ -231,10 +246,10 @@ const LogsComponent = () => {
               0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2M6.854 8.146 8 9.293l1.146-1.147a.5.5 
               0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 
               0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 1 1 .708-.708"/>
-            </svg> - Registro fuera de horario
+            </svg> - Registro fuera de horario.
         </div>
         </div>
-           <div className="row">
+      <div className="row" style={{marginBottom:'32px'}}>
         <div className="col">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
               className="bi bi-calendar2" viewBox="0 0 16 16">
@@ -242,18 +257,18 @@ const LogsComponent = () => {
               2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 
               1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
               <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
-            </svg> - Retraso
+            </svg> - Retraso.
         </div>
         <div className="col">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
         className="bi bi-door-closed" viewBox="0 0 16 16">
               <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
               <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
-            </svg> - Salida
+            </svg> - Salida.
         </div>
         </div>
         </div>
-        
+        </div>
         <div>
       </div>
       <Footer />

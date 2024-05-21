@@ -40,7 +40,7 @@ function App() {
             <div className="formulario">
             <div className="texto-formulario">
             <h1 style={{fontSize:'40px'}}>Bienvenido</h1>
-            <p>Inicia Sesion con tu cuenta</p>
+            <p>Inicia Sesión con tu cuenta</p>
             </div>
             <form onSubmit={handleLogin}>
                 <div className="input">

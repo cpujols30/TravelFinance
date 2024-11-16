@@ -1,61 +1,65 @@
-# Proyecto fin de Grado: Aplicación Financiera para Agencias de Viajes: Gestor y Optimizador de Gastos e Ingresos
-## Nombre de la aplicación
+# Final Degree Project: Financial Application for Travel Agencies: Expense and Income Manager and Optimizer
+
+## Application Name
 Travel Finance Hub
-## Autor
-Carlos Pujols Brito.
 
-## Institución
-Universidad Francisco de Vitoria.
+## Author
+Carlos Pujols Brito
 
-## Descripción
-Este proyecto de fin de grado tiene como objetivo desarrollar una plataforma web especializada para agencias de viajes minoristas. La plataforma está diseñada para integrar funcionalidades específicas que faciliten y mejoren la gestión de actividades diarias dentro del sector de las agencias de viajes.
+## Institution
+Francisco de Vitoria University
 
-## Tecnologías Utilizadas
+## Description
+This final degree project aims to develop a web platform specialized for retail travel agencies. The platform is designed to integrate specific features that facilitate and improve the management of daily activities within the travel agency sector.
+
+## Technologies Used
 - **Frontend**: React
 - **Backend**: Java
-- **Gestión de dependencias**: npm
+- **Dependency Management**: npm
 
 # Backend
-## Instalación y ejecución
+
+## Installation and Execution
+To install and set up the backend, run the following command:
 ```bash
 mvn clean install
 ```
 ## Testing
-Ejecuta pruebas en el backend mediante:
+To run backend tests, execute:
 ```bash
 mvn test
 ```
-## Análisis de Código
-Para generar un informe de análisis de código en el frontend con chekstyle, ejecuta:
+## Code Analysis
+To generate a code analysis report using Checkstyle for the frontend, run:
 ```bash
 mvn checkstyle:checkstyle
 ```
-El informe se encuentra en la ruta target/site/checktyle.html
+The report can be found at the following path: target/site/checktyle.html
 # Frontend
-## Instalación 
-Para instalar las dependencias del proyecto, ejecuta el siguiente comando en la terminal:
+## Instalation 
+To install the project dependencies, run the following command in the terminal:
 ```bash
 npm install
 ```
-## Ejecución
-Para iniciar la plataforma en modo desarrollador, utiliza el siguiente comando:
+## Execution
+To start the platform in developer mode, use:
 ```bash
 npm run dev
 ```
 ## Testing
-Realiza pruebas en el frontend mediante:
+To run frontend tests, execute:
 ```bash
 npm run test
 ```
 
-## Análisis de Código
-Para generar un informe de análisis de código en el frontend con ESLint, ejecuta:
+## Code Analysis
+To generate a code analysis report using ESLint for the frontend, run:
 ```bash
 npx eslint src/ --ext .js,.jsx --format html --output-file eslint-report.html
 ```
-El informe se encuentra /eslint-report.html
-## Estado del Proyecto
-Proyecto finalizado.
+The report will be available at /eslint-report.html
+## Project Status
+Project completed
 
-## Contacto
+## Contact
 - Email: cpujols08@gmail.com
